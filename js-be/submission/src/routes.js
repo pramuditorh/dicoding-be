@@ -1,10 +1,9 @@
-const {handler}=require('@hapi/hapi/lib/cors');
 const {
   addBookHandler,
   getAllBookHandler,
   getAllBookByIdHandler,
   editBookByIdHandler,
-  deleteBookByIdHandler
+  deleteBookByIdHandler,
 }=require('./handler');
 
 const routes=[
@@ -31,8 +30,8 @@ const routes=[
   {
     method: 'DELETE',
     path: '/books/{bookId}',
-    handler: deleteBookByIdHandler
-  }
+    handler: deleteBookByIdHandler,
+  },
 ];
 
 module.exports=routes;

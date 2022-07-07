@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const {nanoid}=require('nanoid');
 const books=require('./books');
 
@@ -33,7 +34,7 @@ const addBookHandler=(request, h) => {
     updatedAt,
   };
 
-  if(!name) {
+  if (!name) {
     const response=h.response({
       status: 'fail',
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
@@ -42,7 +43,7 @@ const addBookHandler=(request, h) => {
     return response;
   }
 
-  if(readPage>pageCount) {
+  if (readPage>pageCount) {
     const response=h.response({
       status: 'fail',
       // eslint-disable-next-line max-len
@@ -56,7 +57,7 @@ const addBookHandler=(request, h) => {
 
   const isSuccess=books.filter((note) => note.id===id).length>0;
 
-  if(isSuccess) {
+  if (isSuccess) {
     const response=h.response({
       status: 'success',
       message: 'Buku berhasil ditambahkan',
@@ -79,7 +80,7 @@ const addBookHandler=(request, h) => {
 const getAllBookHandler=(request, h) => {
   const params=request.query;
 
-  if(params.name!==undefined) {
+  if (params.name!==undefined) {
     const name=params.name.toLowerCase();
     const bookByName=books.filter((book) => book.name.toLowerCase().includes(name));
 
@@ -89,16 +90,16 @@ const getAllBookHandler=(request, h) => {
         books: bookByName.map((element) => ({
           id: element.id,
           name: element.name,
-          publisher: element.publisher
-        }))
-      }
+          publisher: element.publisher,
+        })),
+      },
     });
     response.code(200);
     return response;
   }
 
-  if(params.reading!==undefined) {
-    if(params.reading==='0') {
+  if (params.reading!==undefined) {
+    if (params.reading==='0') {
       const bookByReading=books.filter((book) => book.reading===false);
 
       const response=h.response({
@@ -107,15 +108,15 @@ const getAllBookHandler=(request, h) => {
           books: bookByReading.map((element) => ({
             id: element.id,
             name: element.name,
-            publisher: element.publisher
-          }))
-        }
+            publisher: element.publisher,
+          })),
+        },
       });
       response.code(200);
       return response;
     }
 
-    if(params.reading==='1') {
+    if (params.reading==='1') {
       const bookByReading=books.filter((book) => book.reading===true);
 
       const response=h.response({
@@ -124,17 +125,17 @@ const getAllBookHandler=(request, h) => {
           books: bookByReading.map((element) => ({
             id: element.id,
             name: element.name,
-            publisher: element.publisher
-          }))
-        }
+            publisher: element.publisher,
+          })),
+        },
       });
       response.code(200);
       return response;
     }
   }
 
-  if(params.finished!==undefined) {
-    if(params.finished==='0') {
+  if (params.finished!==undefined) {
+    if (params.finished==='0') {
       const bookByFinished=books.filter((book) => book.finished===false);
 
       const response=h.response({
@@ -143,15 +144,15 @@ const getAllBookHandler=(request, h) => {
           books: bookByFinished.map((element) => ({
             id: element.id,
             name: element.name,
-            publisher: element.publisher
-          }))
-        }
+            publisher: element.publisher,
+          })),
+        },
       });
       response.code(200);
       return response;
     }
 
-    if(params.finished==='1') {
+    if (params.finished==='1') {
       const bookByFinished=books.filter((book) => book.finished===true);
 
       const response=h.response({
@@ -160,9 +161,9 @@ const getAllBookHandler=(request, h) => {
           books: bookByFinished.map((element) => ({
             id: element.id,
             name: element.name,
-            publisher: element.publisher
-          }))
-        }
+            publisher: element.publisher,
+          })),
+        },
       });
       response.code(200);
       return response;
@@ -175,9 +176,9 @@ const getAllBookHandler=(request, h) => {
       books: books.map((element) => ({
         id: element.id,
         name: element.name,
-        publisher: element.publisher
-      }))
-    }
+        publisher: element.publisher,
+      })),
+    },
   });
   response.code(200);
   return response;
@@ -187,22 +188,22 @@ const getAllBookByIdHandler=(request, h) => {
   const id=request.params.bookId;
   const book=books.filter((book) => book.id===id)[0];
 
-  if(book!==undefined) {
+  if (book!==undefined) {
     return {
       status: 'success',
       data: {
-        book: book
-      }
-    }
+        book: book,
+      },
+    };
   }
 
   const response=h.response({
     status: 'fail',
-    message: 'Buku tidak ditemukan'
+    message: 'Buku tidak ditemukan',
   });
   response.code(404);
-  return response
-}
+  return response;
+};
 
 const editBookByIdHandler=(request, h) => {
   const id=request.params.bookId;
@@ -220,16 +221,16 @@ const editBookByIdHandler=(request, h) => {
   const updatedAt=new Date().toISOString();
   const bookIndex=books.findIndex((book) => book.id===id);
 
-  if(!name) {
+  if (!name) {
     const response=h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Mohon isi nama buku'
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     });
     response.code(400);
     return response;
   }
 
-  if(readPage>pageCount) {
+  if (readPage>pageCount) {
     const response=h.response({
       status: 'fail',
       // eslint-disable-next-line max-len
@@ -239,16 +240,16 @@ const editBookByIdHandler=(request, h) => {
     return response;
   }
 
-  if(!id) {
+  if (!id) {
     const response=h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Id tidak ditemukan'
+      message: 'Gagal memperbarui buku. Id tidak ditemukan',
     });
     response.code(404);
     return response;
   }
 
-  if(bookIndex!==-1) {
+  if (bookIndex!==-1) {
     books[bookIndex]={
       ...books[bookIndex],
       name,
@@ -260,11 +261,11 @@ const editBookByIdHandler=(request, h) => {
       readPage,
       finished,
       reading,
-      updatedAt
+      updatedAt,
     };
     const response=h.response({
       status: 'success',
-      message: 'Buku berhasil diperbarui'
+      message: 'Buku berhasil diperbarui',
     });
     response.code(200);
     return response;
@@ -276,13 +277,13 @@ const editBookByIdHandler=(request, h) => {
   });
   response.code(404);
   return response;
-}
+};
 
 const deleteBookByIdHandler=(request, h) => {
   const id=request.params.bookId;
   const bookIndex=books.findIndex((book) => book.id===id);
 
-  if(bookIndex!==-1) {
+  if (bookIndex!==-1) {
     books.splice(bookIndex, 1);
     const response=h.response({
       status: 'success',
@@ -305,5 +306,5 @@ module.exports={
   getAllBookHandler,
   getAllBookByIdHandler,
   editBookByIdHandler,
-  deleteBookByIdHandler
+  deleteBookByIdHandler,
 };

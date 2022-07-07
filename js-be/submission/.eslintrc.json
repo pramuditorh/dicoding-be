@@ -10,6 +10,7 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "eslint-disable-next-line object-curly-spacing": true
+    "eslint-disable-next-line": 0,
+    "object-curly-spacing": 0
   }
 }
